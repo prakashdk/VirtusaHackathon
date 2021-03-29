@@ -16,6 +16,9 @@ public class Controller {
    @Autowired
    private CarRepository carRepository;
 
+   @Autowired
+   private CarDetailsRepository carDetailsRepository;
+
     @RequestMapping("/")
     public String home(){
         return "Welcome home";
@@ -81,13 +84,14 @@ public class Controller {
     }
 
     @RequestMapping("user/cardetails")
-    public Iterable<Customer> carDetails(@RequestParam(name = "carid") String carId){
+    public Car carDetails(@RequestParam(name = "carid") int carId){
         try{
             
-            return new ArrayList<Customer>();
+            return carRepository.findById(carId).get();
         }catch(Exception e){
-            return null;
+            return new Car();
         }
+        
     }
     
     @RequestMapping("user/bookings")
