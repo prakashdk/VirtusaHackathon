@@ -1,12 +1,30 @@
 package com.example.spring.Controllers;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Customer {
+
+    @Id
     private String email;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "userrole")
     private String userrole;
+
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "age")
     private String age;
+
+    @Column(name = "mobilenumber")
     private String mobileNumber;
 
     /**
