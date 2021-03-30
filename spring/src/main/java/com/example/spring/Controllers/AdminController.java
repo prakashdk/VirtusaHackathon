@@ -93,7 +93,7 @@ public class AdminController {
             c.setCarPrice("10000");
             c.setCarStatus("Available");
             c.setCarDescription("Car Descriptin");
-            c.setCarAdminId("smith@gmailcom");
+            c.setCarAdminId("smith@gmail.com");
             carRepository.save(c);
             return "saved";
         }catch(Exception e){
@@ -124,8 +124,17 @@ public class AdminController {
         
     }
 
-    @RequestMapping(value={"/profile","/editProfile"})
-    public Admin carDetails(@RequestParam(name = "adminid") String adminId){
+    @RequestMapping("/profile")
+    public Admin profile(@RequestParam(name = "adminid") String adminId){
+        try{
+            return adminRepository.findById(adminId).get();
+        }catch(Exception e){
+            return new Admin();
+        }
+        
+    }
+    @RequestMapping(value ="/editProfile",params = "adminid")
+    public Admin editProfile(@RequestParam(name = "adminid") String adminId){
         try{
             return adminRepository.findById(adminId).get();
         }catch(Exception e){
@@ -134,8 +143,8 @@ public class AdminController {
         
     }
 
-    @RequestMapping("/editProfile")
-    public String carDetails(@RequestParam(name = "adminmodel") Admin admin){
+    @RequestMapping(value="/editProfile",params="adminmodel")
+    public String saveProfile(@RequestParam(name = "adminmodel") Admin admin){
         try{
             adminRepository.save(admin);
             return "saved";

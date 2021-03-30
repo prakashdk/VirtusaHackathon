@@ -25,7 +25,7 @@ public class Controller {
 
     @RequestMapping("/")
     public String home(){
-        return "Welcome home";
+        return "Welcome super admin";
     }
 
     
@@ -44,7 +44,7 @@ public class Controller {
     @RequestMapping("/deleteadmin")
     public String deleteAdmin(@RequestParam(name = "adminid") String adminId){
         try{
-            
+            adminRepository.deleteById(adminId);
             return "removed";
         }catch(Exception e){
             return "failed";
@@ -68,7 +68,18 @@ public class Controller {
             
             return customerRepository.findAll();
         }catch(Exception e){
-            return null;
+            return new ArrayList<Customer>();
+        }
+        
+    }
+    
+    @RequestMapping("/getadmin")
+    public Iterable<Admin> getAdmin(){
+        try{
+            
+            return adminRepository.findAll();
+        }catch(Exception e){
+            return new ArrayList<Admin>();
         }
         
     }

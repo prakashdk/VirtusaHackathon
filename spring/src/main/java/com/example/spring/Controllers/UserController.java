@@ -71,8 +71,14 @@ public class UserController {
     }
 
     @RequestMapping("/dashboard")
-    public String userDashboard(){
-        return "Companies";
+    public Iterable<Admin> getAdmin(){
+        try{
+            
+            return adminRepository.findAll();
+        }catch(Exception e){
+            return new ArrayList<Admin>();
+        }
+        
     }
 
     @RequestMapping("/cars")
@@ -100,7 +106,7 @@ public class UserController {
 
     
     @RequestMapping("/book")
-    public Car carDetails(@RequestParam(name = "carid") int carId,@RequestParam(name = "emailid") String emailId){
+    public String carDetails(@RequestParam(name = "carid") int carId,@RequestParam(name = "emailid") String emailId){
         try{
             
             Car car=carRepository.findById(carId).get();
@@ -112,14 +118,13 @@ public class UserController {
                 carDetails.setEmailid(emailId);
                 carDetails.setStatus("0");
                 carDetailsRepository.save(carDetails);
-                car.setCarStatus("Available");
-                return car;
+                return "Booked";
             }
             else{
-                return new Car();
+                return "Unavailable";
             }
         }catch(Exception e){
-            return new Car();
+            return "failed";
         }
         
     }
