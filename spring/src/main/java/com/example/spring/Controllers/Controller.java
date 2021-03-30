@@ -20,6 +20,9 @@ public class Controller {
    @Autowired
    private CarDetailsRepository carDetailsRepository;
 
+   @Autowired
+   private AdminRepository adminRepository;
+
     @RequestMapping("/")
     public String home(){
         return "Welcome home";
